@@ -1,0 +1,37 @@
+#!/bin/bash
+
+usage()
+{
+    echo "usage: docker-clean exited | all"
+}
+
+while [ "$1" != "" ]; do
+    case $1 in
+        exited )                shift
+                                if [ "$(docker ps -q -f status=exited)" != "" ]; then
+                                    docker rm $(docker ps -q -f status=exited)
+                                fi
+                                ;;
+        images )                shift
+                                if [ "$(docker images -q)" != "" ]; then
+                                    docker rmi -f $(docker images -q)
+                                fi
+                                ;;
+        containers )            shift
+                                if [ "$(docker ps -a -q)" != "" ]; then
+                                    docker rm $(docker ps -a -q)
+                                fi
+                                ;;
+        all )                   shift
+                                if [ "$(docker ps -a -q)" != "" ]; then
+                                    docker rm $(docker ps -a -q)
+                                fi
+                                if [ "$(docker images -q)" != "" ]; then
+                                    docker rmi $(docker images -q)
+                                fi
+                                ;;
+        * )                     usage
+                                exit 1
+    shift
+    esac
+done
