@@ -3,9 +3,11 @@ Docker-Clean
 
 ## Installation
 
+```
 git pull https://github.com/edgeprod/docker-clean
 cp docker-clean/docker-clean /usr/local/bin
 chmod +x /usr/local/bin/docker-clean
+```
 
 
 ## Usage Instructions
